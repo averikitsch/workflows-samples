@@ -57,8 +57,7 @@ jobs:
         TMP_NAME=${TMP_NAME/connectors\//}  # remove connectors/ if present
         WORKFLOW=${TMP_NAME//./-} #-${{ github.run_id }}  # convert . to -
 
-        gcloud config list
-        cat $GOOGLE_APPLICATION_CREDENTIALS
+        gcloud workflows list
         gcloud workflows deploy $WORKFLOW --source ${{ matrix.file }} --location $REGION
         echo '::set-output name=WORKFLOW::${WORKFLOW}'
 

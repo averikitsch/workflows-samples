@@ -59,7 +59,7 @@ jobs:
 
         gcloud workflows list
         gcloud workflows deploy $WORKFLOW --source ${{ matrix.file }} --location $REGION
-        echo '::set-output name=WORKFLOW::$WORKFLOW'
+        echo "::set-output name=WORKFLOW::$WORKFLOW"
 
     - name: Clean up Workflow
       if: ${{ steps.test.outputs.WORKFLOW != '' }}

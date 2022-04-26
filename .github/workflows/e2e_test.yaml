@@ -58,10 +58,10 @@ jobs:
         WORKFLOW=${TMP_NAME//./-} #-${{ github.run_id }}  # convert . to -
 
         gcloud workflows list
-        gcloud workflows deploy $WORKFLOW --source ${{ matrix.file }} --location $REGION
+        gcloud workflows deploy $WORKFLOW --source ${{ matrix.file }} --location $REGION --quiet
         echo "::set-output name=WORKFLOW::$WORKFLOW"
 
     - name: Clean up Workflow
       if: ${{ steps.test.outputs.WORKFLOW != '' }}
       run:
-        gcloud workflows delete ${{ steps.test.outputs.WORKFLOW }} --location $REGION
+        gcloud workflows delete ${{ steps.test.outputs.WORKFLOW }} --location $REGION --quiet

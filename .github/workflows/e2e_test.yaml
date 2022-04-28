@@ -28,6 +28,7 @@ jobs:
     needs: get
     if: ${{ needs.get.outputs.files != '[]' && needs.get.outputs.files != '' }}
     strategy:
+      fail-fast: false
       matrix: 
         file: ${{ fromJSON(needs.get.outputs.files) }}
     permissions:
@@ -57,7 +58,6 @@ jobs:
         TMP_NAME=${TMP_NAME/connectors\//}  # remove connectors/ if present
         WORKFLOW=${TMP_NAME//./-} #-${{ github.run_id }}  # convert . to -
 
-        gcloud workflows list
         gcloud workflows deploy $WORKFLOW --source ${{ matrix.file }} --location $REGION --quiet
         echo "::set-output name=WORKFLOW::$WORKFLOW"
 

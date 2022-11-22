@@ -34,9 +34,8 @@ jobs:
       - id: get-files
         run: |-
           echo "matrix=[$(find ./src -name "*.yaml")]" > _files
-          sed -z 's/\n/,/g' _files
-          cat _files
-          cat _files >> $GITHUB_OUTPUT
+          sed -z 's/\n/,/g' _files >> $GITHUB_OUTPUT
+          cat $GITHUB_OUTPUT
 
   smoke-test:
     runs-on: ubuntu-latest

@@ -33,8 +33,10 @@ jobs:
 
       - id: get-files
         run: |-
-          echo "matrix=[$(find ./src -name "*.yaml")]" > _files
-          sed -z 's/\n/,/g' _files >> $GITHUB_OUTPUT
+          echo "$(find ./src -name "*.yaml")" > _files
+          # Create array from find output
+          sed -i 's/ /,/g' _files
+          echo "matrix=[$(sed -z 's/\n//g' _files)]" >> $GITHUB_OUTPUT
           cat $GITHUB_OUTPUT
 
   smoke-test:

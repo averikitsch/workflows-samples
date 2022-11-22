@@ -32,7 +32,10 @@ jobs:
         uses: actions/checkout@v3
 
       - id: get-files
-        run: echo "matrix=$(find ./src -name "*.yaml")" >> $GITHUB_OUTPUT
+        run: -|
+          echo "matrix=[$(find ./src -name "*.yaml")]" > _files
+          sed -z 's/\n/,/g' _files
+          cat _files >> $GITHUB_OUTPUT
 
   smoke-test:
     runs-on: ubuntu-latest

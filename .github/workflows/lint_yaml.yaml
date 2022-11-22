@@ -20,4 +20,4 @@ jobs:
 
     - name: Lint YAML files
       working-directory: src
-      run: yamllint -f parsable -c tests/.yamllint . 
+      run: yamllint -f parsable -c ./tests/.yamllint . 

@@ -5,23 +5,23 @@ env:
   WORKFLOW: schema/workflows.json
 
 jobs:
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repo
-        uses: actions/checkout@v3
+  # validate:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out repo
+  #       uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v3
 
-      - name: Set up tooling
-        run: npm install -g ajv-cli
+  #     - name: Set up tooling
+  #       run: npm install -g ajv-cli
 
-      - name: Validate workflow
-        run: ajv compile -s ${{ env.WORKFLOW }}
+  #     - name: Validate workflow
+  #       run: ajv compile -s ${{ env.WORKFLOW }}
 
-      - name: Validate cheatsheet
-        run: ajv validate -s ${{ env.WORKFLOW }} -d cheatsheet.yaml
+  #     - name: Validate cheatsheet
+  #       run: ajv validate -s ${{ env.WORKFLOW }} -d cheatsheet.yaml
 
   get:
     runs-on: ubuntu-latest
@@ -33,7 +33,7 @@ jobs:
 
       - id: get-files
         run: |-
-          echo "$(find ./src -name "*.yaml")" > _files
+          echo "$(find $GITHUB_WORKSPACE/src -name "*.yaml")" > _files
           # Create array from find output
           sed -i 's/ /,/g' _files
           echo "matrix=[$(sed -z 's/\n//g' _files)]" >> $GITHUB_OUTPUT

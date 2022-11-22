@@ -21,7 +21,7 @@
 - saveUserInfo:
     for:
       value: uid
-      in: ${userIds}
+      in: [1,2]
       steps:
         - tryStep:
             try:

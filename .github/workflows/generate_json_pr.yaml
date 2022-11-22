@@ -18,7 +18,7 @@ jobs:
       run: npm install -g yamljs
 
     - name: Run toJSON script
-      run: ./tojson.sh
+      run: ./tests/tojson.sh
 
     - name: Check for diff
       run: git diff --exit-code

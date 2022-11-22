@@ -17,15 +17,14 @@
     try:
       steps:
         - failOdd:
-            parallel:
-              for:
-                value: num
-                range: [0, 5]
-                steps:
-                  - checkEven:
-                      switch:
-                        - condition: ${num % 2 != 0}
-                          raise: "how odd!"
+            for:
+              value: num
+              range: [0, 5]
+              steps:
+                - checkEven:
+                    switch:
+                      - condition: ${num % 2 != 0}
+                        raise: "how odd!"
     except:
       as: e
       steps:

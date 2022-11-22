@@ -11,4 +11,4 @@ jobs:
     - name: Check out repo
       uses: actions/checkout@v3
     - name: Validate Filenames
-      run: ./validateFilenames.sh
+      run: ./tests/validateFilenames.sh

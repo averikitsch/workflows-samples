@@ -24,8 +24,8 @@ main:
     - checkSearchTermInInput:
         switch:
           - condition: ${"searchTerm" in input}
-            assign:
-              - searchTerm: ${input.searchTerm}
+            # assign:
+              # - searchTerm: ${input.searchTerm}
             next: readWikipedia
     - getCurrentTime:
         call: http.get

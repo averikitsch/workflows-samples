@@ -41,8 +41,8 @@
     call: googleapis.sheets.v4.spreadsheets.create
     args:
       body:
-      connector_params:
-        scopes: ${driveScope}
+        connector_params:
+          scopes: ${driveScope}
     result: resp
 - assign_sheet_id:
     assign:

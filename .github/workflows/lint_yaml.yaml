@@ -16,12 +16,10 @@ jobs:
           # Create array from find output
           sed -i 's/ /,/g' _files
           echo "matrix=[$(sed -z 's/\n//g' _files)]" >> $GITHUB_OUTPUT
-          cat $GITHUB_OUTPUT
 
   lint:
     runs-on: ubuntu-latest
     needs: get
-    if: ${{ always() && needs.get.outptus.matrix != '[]' && needs.get.outptus.matrix != '' }}
     strategy:
       fail-fast: false
       matrix: 

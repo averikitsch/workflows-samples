@@ -26,17 +26,26 @@ jobs:
   get:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.get-files.outputs.matrix }}
+      matrix: ${{ steps.get-files.outputs.result }}
     steps:
       - name: Check out repo
         uses: actions/checkout@v3
 
-      - id: get-files
-        run: |-
-          echo "$(find $GITHUB_WORKSPACE/src -name "*.yaml")" > _files
-          # Create array from find output
-          echo "matrix=[$(sed -z 's/\n\//, /g' _files)]" >> $GITHUB_OUTPUT
-          cat $GITHUB_OUTPUT
+      - name: Get source files
+        uses: actions/github-script@v6
+        id: get-files
+        with:
+          script: |
+            const fs = require('fs');
+            const Path = require('path');
+            const workspace = process.env.GITHUB_WORKSPACE;
+
+            let files = fs.readdirSync(Path.join(workspace, 'src'));
+            files = files.map((file) => Path.join('./src', file));
+            let connectors = fs.readdirSync(Path.join(workspace, 'src/connectors'));
+            connectors = connectors.map((file) => Path.join('./src/connectors', file));
+            files.concat(connectors);
+            return files.filter((filename) => filename.endsWith('yaml'));
 
   smoke-test:
     runs-on: ubuntu-latest

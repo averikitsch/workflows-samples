@@ -19,12 +19,12 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
-    needs: [get]
+    needs: get
     if: ${{ always() }}
     strategy:
       fail-fast: false
       matrix:
-        sample: ${{ fromJSON(needs.get.outputs.matrix) }}
+        sample: ${{ needs.get.outputs.matrix }}
     steps:
       - name: Check out repo
         uses: actions/checkout@v3

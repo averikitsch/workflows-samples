@@ -54,7 +54,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sample: ${{ needs.get.outputs.matrix }}
+        sample: ${{ fromJSON(needs.get.outputs.matrix) }}
     steps:
       - name: Check out repo
         uses: actions/checkout@v3

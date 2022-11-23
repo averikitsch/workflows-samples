@@ -33,7 +33,7 @@ jobs:
 
       - id: get-files
         run: |-
-          echo "$(find $GITHUB_WORKSPACE/src -name "*.yaml")" > _files
+          echo "$(find $GITHUB_WORKSPACE/src -name "*.yaml")" >> _files
           # Create array from find output
           sed -i 's/ /,/g' _files
           echo "matrix=[$(sed -z 's/\n//g' _files)]" >> $GITHUB_OUTPUT
@@ -44,7 +44,7 @@ jobs:
     needs: get
     if: ${{ always() }}
     strategy:
-      # fail-fast: false
+      fail-fast: false
       matrix:
         sample: ${{ needs.get.outputs.matrix }}
     steps:
